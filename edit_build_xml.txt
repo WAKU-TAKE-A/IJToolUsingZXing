@@ -1,0 +1,14 @@
+Please add the following to <target name="-post-compile"> 
+
+        <move todir="plugins">
+            <fileset dir="${build.classes.dir}" includes="ZX_*.class"/>
+        </move>
+        <jar jarfile="IJTools_UsingZXing.jar">
+            <fileset dir="plugins" includes="ZX_*.class"/>
+            <manifest>
+                <attribute name="Main-Class" value="Main" />
+            </manifest>
+        </jar>
+
+Remarks:
+When a Java platform is changed, it is disappeared, so I take notes.
