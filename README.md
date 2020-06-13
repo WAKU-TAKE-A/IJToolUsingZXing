@@ -1,7 +1,7 @@
 
 # IJToolsUsingZXing
 
-まだ作成途中です。
+まだ作成途中です。<br>
 Still in the process of being created.
 
 ## 日本語の説明
@@ -24,7 +24,7 @@ Still in the process of being created.
 
 使い方は、以下の通りです。
 
-(1) [ZXing core](https://mvnrepository.com/artifact/com.google.zxing/core) と、[ZXing Java SE extensions](https://mvnrepository.com/artifact/com.google.zxing/javase) をダウンロードして、ImageJのpluginsフォルダにコピーします。+ 
+(1) [ZXing core](https://mvnrepository.com/artifact/com.google.zxing/core) と、[ZXing Java SE extensions](https://mvnrepository.com/artifact/com.google.zxing/javase) をダウンロードして、ImageJのpluginsフォルダにコピーします。<br> 
 (3.40で試しています)
 
 (2) リリースからダウンロードしたZIPファイルを展開し、ZXingフォルダをpluginsフォルダにコピーしてください。
@@ -51,7 +51,7 @@ Put the created plugin binary (`IJToolUsingZXing_***zip`) in [here](https://gith
 
 The usage is as follows.
 
-(1) [ZXing core](https://mvnrepository.com/artifact/com.google.zxing/core) and [ZXing Java SE extensions](https://mvnrepository.com/artifact/com.google.zxing/javase) and copy it to the ImageJ plugins folder. +
+(1) [ZXing core](https://mvnrepository.com/artifact/com.google.zxing/core) and [ZXing Java SE extensions](https://mvnrepository.com/artifact/com.google.zxing/javase) and copy it to the ImageJ plugins folder.<br>
 (I am trying with 3.40)
 
 (2) Extract the ZIP file downloaded from the release page, and copy the ZXing folder to the plugins folder.
