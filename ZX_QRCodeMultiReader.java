@@ -47,7 +47,7 @@ import java.util.Map;
  */
 
 /**
- * com.google.zxing.qrcode.QRCodeWriter.
+ * com.google.zxing.multi.qrcode.QRCodeMultiReader.
  */
 public class ZX_QRCodeMultiReader implements ij.plugin.filter.ExtendedPlugInFilter {
     // constant var.
