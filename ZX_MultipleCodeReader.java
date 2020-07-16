@@ -4,9 +4,7 @@ import ij.IJ;
 import ij.gui.GenericDialog;
 import ij.plugin.filter.PlugInFilterRunner;
 import ij.process.ImageProcessor;
-
 import java.awt.image.BufferedImage;
-
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.LuminanceSource;
@@ -51,7 +49,7 @@ import java.util.Map;
 /**
  * com.google.zxing.multi.GenericMultipleBarcodeReader.
  */
-public class ZX_MultipleBarcodeReader implements ij.plugin.filter.ExtendedPlugInFilter {
+public class ZX_MultipleCodeReader implements ij.plugin.filter.ExtendedPlugInFilter {
     // constant var.
     private static final int FLAGS = DOES_8G | DOES_RGB;
      
@@ -119,9 +117,7 @@ public class ZX_MultipleBarcodeReader implements ij.plugin.filter.ExtendedPlugIn
                 }
 
                 for (Result result : results) {
-                    if (result.getBarcodeFormat() != BarcodeFormat.QR_CODE) {
-                        showData(result);
-                    }
+                    showData(result);
                 }
             }       
         }
@@ -132,8 +128,17 @@ public class ZX_MultipleBarcodeReader implements ij.plugin.filter.ExtendedPlugIn
     
     private void showData(Result res)
     {  
-        float cx = (res.getResultPoints()[0].getX() + res.getResultPoints()[1].getX()) / 2;
-        float cy = (res.getResultPoints()[0].getY() + res.getResultPoints()[1].getY()) / 2;
+        float cx;
+        float cy;
+        
+        if (res.getBarcodeFormat() == BarcodeFormat.QR_CODE || res.getBarcodeFormat() == BarcodeFormat.DATA_MATRIX) {
+            cx = (res.getResultPoints()[0].getX() + res.getResultPoints()[2].getX()) / 2;
+            cy = (res.getResultPoints()[0].getY() + res.getResultPoints()[2].getY()) / 2;
+        }
+        else{
+            cx = (res.getResultPoints()[0].getX() + res.getResultPoints()[1].getX()) / 2;
+            cy = (res.getResultPoints()[0].getY() + res.getResultPoints()[1].getY()) / 2;
+        }
 
         // set the ResultsTable
         resTab.incrementCounter();
@@ -147,10 +152,19 @@ public class ZX_MultipleBarcodeReader implements ij.plugin.filter.ExtendedPlugIn
         float[] xPoints = new float[2];
         float[] yPoints = new float[2];
         
-        xPoints[0] = res.getResultPoints()[0].getX();
-        yPoints[0] = res.getResultPoints()[0].getY();
-        xPoints[1] = res.getResultPoints()[1].getX();
-        yPoints[1] = res.getResultPoints()[1].getY();
+        if (res.getBarcodeFormat() == BarcodeFormat.QR_CODE || res.getBarcodeFormat() == BarcodeFormat.DATA_MATRIX) {
+            xPoints[0] = res.getResultPoints()[0].getX();
+            yPoints[0] = res.getResultPoints()[0].getY();
+            xPoints[1] = res.getResultPoints()[2].getX();
+            yPoints[1] = res.getResultPoints()[2].getY();
+        }
+        else{
+            xPoints[0] = res.getResultPoints()[0].getX();
+            yPoints[0] = res.getResultPoints()[0].getY();
+            xPoints[1] = res.getResultPoints()[1].getX();
+            yPoints[1] = res.getResultPoints()[1].getY();
+        }
+        
         PolygonRoi proi = new PolygonRoi(xPoints, yPoints, Roi.POLYGON);
         
         roiMan.addRoi(proi);
@@ -192,7 +206,7 @@ public class ZX_MultipleBarcodeReader implements ij.plugin.filter.ExtendedPlugIn
     private RoiManager getRoiManager(boolean enReset, boolean enShowNone)
     {
         Frame frame = WindowManager.getFrame("ROI Manager");
-        RoiManager rm = null;
+        RoiManager rm;
 
         if (frame == null)
         {
